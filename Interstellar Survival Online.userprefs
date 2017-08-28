@@ -1,0 +1,26 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/NetObjSpawn.cs">
+    <Files>
+      <File FileName="Assets/Scripts/PlanetGenerator3.cs" Line="98" Column="20" />
+      <File FileName="Assets/Scripts/gravityMultiplier.cs" Line="1" Column="1" />
+      <File FileName="Assets/ConstraintTrans.cs" Line="1" Column="1" />
+      <File FileName="Assets/MessageController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/HelperClass/Sphere.cs" Line="1" Column="1" />
+      <File FileName="Assets/UniverseCenter.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/HelperClass/ByteHelper.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Camera/CameraControlAdva.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UniverseManager.cs" Line="111" Column="24" NotebookId="1" />
+      <File FileName="Assets/NetObjSpawn.cs" Line="73" Column="36" NotebookId="1" />
+      <File FileName="Assets/NetworkDataManager.cs" Line="49" Column="189" NotebookId="1" />
+      <File FileName="Assets/Scripts/HelperClass/NetworkTransManager.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets/NetworkIdentityCustom.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets/NetworkTransformCustom.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets/Scripts/Gravity.cs" Line="1" Column="1" NotebookId="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -1,0 +1,29 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\NetworkedClasses\NetTransportObjectSync.cs">
+    <Files>
+      <File FileName="Assets\Scripts\NetworkedClasses\NetTransportManager.cs" Line="172" Column="48" />
+      <File FileName="Assets\NetTransportLights.cs" Line="63" Column="21" />
+      <File FileName="Assets\Scripts\NetworkedClasses\NetTransportPlayerManagement.cs" Line="60" Column="2" />
+      <File FileName="Assets\Scripts\NetworkedClasses\NetTransportDebug.cs" Line="25" Column="1" />
+      <File FileName="Assets\Scripts\NetworkedClasses\NetTransportText.cs" Line="51" Column="9" />
+      <File FileName="Assets\Scripts\NetworkedClasses\NetTransportObjectSync.cs" Line="239" Column="13" />
+      <File FileName="Assets\Scripts\CustomClasses\NetTransportCustom.cs" Line="7" Column="57" />
+      <File FileName="Assets\Scripts\UniverseManager.cs" Line="208" Column="29" />
+      <File FileName="Assets\Scripts\NetworkedClasses\NetObjBytes.cs" Line="51" Column="3" />
+      <File FileName="Assets\Scripts\HelperClass\ByteHelper.cs" Line="322" Column="15" />
+      <File FileName="Assets\Scripts\NetworkedClasses\NetIdentityCustom.cs" Line="16" Column="69" />
+      <File FileName="Assets\Scripts\NetworkedClasses\NetTransformCustom.cs" Line="18" Column="31" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="237" Column="13" />
+      <File FileName="Assets\Scripts\PlanetDestruction.cs" Line="10" Column="50" />
+      <File FileName="..\InterstellarSurvivalOnline\Assets\Scripts\Camera\CameraControlAdva.cs" Line="36" Column="2" />
+      <File FileName="Assets\Scripts\PlanetGenerator3.cs" Line="7" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="D:\1MyStaff\MyProjects\Unity3D\Projects\interstellarsurvivalonline\Assets\Scripts\NetworkedClasses\NetTransportObjectSync.cs" line="240" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
