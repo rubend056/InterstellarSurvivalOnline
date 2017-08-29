@@ -264,6 +264,7 @@ public class PlanetGenerator3 : MonoBehaviour {
 			planetInfo.lodIdentifier [i] = LOD;
 			//planetInfo.chunkObject [i].AddComponent<PlanetChunkID> ().chunkID = i;
 			gO.transform.localEulerAngles = getAngle ((int)xyz.z);
+			gO.AddComponent <MeshCollider>();
 		}
 		//Fixing the terrain to concadenate well with eachother
 //		for (int i = 0; i < planetInfo.chunksAmmount; i++) {
@@ -403,7 +404,7 @@ public class PlanetGenerator3 : MonoBehaviour {
 			for (int e = 0; e < lodLevel.Length; e++) {
 				if (dist < lodLevel [e].distance) {
 					if (planetInfo.lodIdentifier [i] != lodLevel[e].lod)
-						setLOD (i, lodLevel [e].lod, lodLevel [e].showTrees);
+						setLOD (i, lodLevel [e].lod, lodLevel [e].showTrees, lodLevel[e].collisions);
 					good = true;
 					break;
 				} 
@@ -411,14 +412,14 @@ public class PlanetGenerator3 : MonoBehaviour {
 
 			if (!good){
 				if (planetInfo.lodIdentifier [i] != awayLOD) {
-					setLOD (i, awayLOD, false);
+					setLOD (i, awayLOD, false, false);
 				}
 			}
 
 		}
 	}
 
-	private void setLOD(int index,int lod, bool trees){
+	private void setLOD(int index,int lod, bool trees, bool collisions){
 		if (!planetInfo.finishedCreating)
 			return;
 		if (planetInfo.objPlacer [index] != null) planetInfo.objPlacer [index].setAll (trees);
@@ -437,7 +438,7 @@ public class PlanetGenerator3 : MonoBehaviour {
 		
 		for (int i = 0; i < planetInfo.chunksAmmount; i++) {
 			if (planetInfo.lodIdentifier [i] != lod)
-				setLOD (i, lod, trees);
+				setLOD (i, lod, trees, false);
 			else if (objPlacerObj != null) planetInfo.objPlacer [i].setAll (trees);
 		}
 	}
@@ -689,6 +690,7 @@ public struct LODLevel{
 	[Range(1,20)]
 	public int lod;
 	public bool showTrees;
+	public bool collisions;
 }
 
 public class PlanetInfo{

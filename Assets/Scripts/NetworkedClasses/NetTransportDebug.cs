@@ -14,6 +14,8 @@ public class NetTransportDebug : NetTransportPlayerManagement{
 	public override void startAsServer(){
 		base.startAsServer ();
 		logMessage ("Server Created");
+		string ip = getLocalIP ();
+		logMessage (String.Format("Your IP is: {0}", ip), "warning");
 	}
 	public override void startAsClient(int offset){
 		base.startAsClient (offset);

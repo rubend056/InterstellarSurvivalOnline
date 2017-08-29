@@ -3,6 +3,9 @@ using UnityEngine;
 public class Sphere{
 	
 
+	public static Vector3 getByDegrees(Vector2 sAngles){
+		return getByDegrees (sAngles.x, sAngles.y);
+	}
 	public static Vector3 getByDegrees(float horizontalAngle, float verticalAngle){
 		float x, y, z, radius;
 		radius = Mathf.Sin (Mathf.Deg2Rad * verticalAngle);
@@ -29,6 +32,11 @@ public class Sphere{
 
 		return new Vector2 (horizontalAngle, verticalAngle);
 	}
+
+//	public static Vector3 approachSpherePos(Vector3 origin, Vector3 dest, float interp, Vector3 offset){
+//		origin -= offset;dest -= offset;
+//		return Vector3.Slerp (origin, dest, interp) + offset;
+//	}
 
 	public static Vector3 findVectorAndDistance(Vector2 a, Vector2 b){
 		//float divisionFactor = Sphere.getDivisionFactor (a.y, b.y);

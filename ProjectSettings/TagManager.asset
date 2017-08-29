@@ -9,6 +9,8 @@ TagManager:
   - Pine
   - Rock
   - planetRB
+  - Bullet
+  - star
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine.Networking;
 
 public class NetTransportManager : MonoBehaviour{
@@ -239,6 +240,22 @@ public class NetTransportManager : MonoBehaviour{
 				return i;
 		}
 		return -1;
+	}
+
+	public string getLocalIP()
+	{
+		IPHostEntry host;
+		string localIP = "";
+		host = Dns.GetHostEntry(Dns.GetHostName());
+		foreach (IPAddress ip in host.AddressList)
+		{
+			if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+			{
+				localIP = ip.ToString();
+				break;
+			}
+		}
+		return localIP;
 	}
 
 	#endregion

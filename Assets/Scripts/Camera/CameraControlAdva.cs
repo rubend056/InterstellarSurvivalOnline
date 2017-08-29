@@ -22,7 +22,7 @@ public class CameraControlAdva : MonoBehaviour {
 	[Range(1f,50f)]
 	public float smoothValue = 3f;
 
-	private float upAngle = 110f;
+
 	[Range(0.5f,3f)]
 	public float mouseAcceleration = 1f;
 
@@ -37,7 +37,9 @@ public class CameraControlAdva : MonoBehaviour {
 	public GameObject playerObject;
 	public GameObject pauseMenu;
 
-	float aroundAngle = 0f;
+
+	Vector2 goToSAngles = new Vector2 (0, 110);
+	Vector2 lastToSAngles = new Vector2 (0, 110);
 	public bool pause = false;
 	public bool planetView = false;
 	private GameObject previewObject;
@@ -54,7 +56,6 @@ public class CameraControlAdva : MonoBehaviour {
 	public bool touchEnabled = true;
 
 	public bool autoRotate = false;
-	private float screenDPI;
 	public bool targetOrientation = false;
 
 	void Awake(){
@@ -65,7 +66,6 @@ public class CameraControlAdva : MonoBehaviour {
 	void Start () {
 //		startingParent = gameObject.transform.parent;
 //		localStartingPos = gameObject.transform.localPosition;
-		screenDPI = Screen.dpi;
 		//viewMode = ViewMode.around;
 		lookAt = gameObject.GetComponent<SmoothLookAtC> ();
 		cam = gameObject.GetComponent<Camera> ();
@@ -123,11 +123,11 @@ public class CameraControlAdva : MonoBehaviour {
 							scroll = (touchDelta0.y + touchDelta1.y) /2;
 						}
 
-						float divValue = 1 / (screenDPI * 0.1f);
+						float divValue = 1 / (Screen.dpi * 0.1f);
 						lastDeltaChange *= divValue;
 						mouseX *= divValue;
 						mouseY *= divValue;
-						scroll /= screenDPI * 0.25f;
+						scroll /= Screen.dpi * 0.25f;
 //						if (lastDeltaChange.magnitude > 5) {
 //							mouseX = 0;
 //							mouseY = 0;
@@ -153,16 +153,16 @@ public class CameraControlAdva : MonoBehaviour {
 					}
 
 					//Apply and clamp around angle :)						AroundAngle
-					aroundAngle += mouseX * mouseAcceleration;
-					if (aroundAngle < 0)
-						aroundAngle += 360;
-					if (aroundAngle > 360)
-						aroundAngle -= 360;
+					goToSAngles.x += mouseX * mouseAcceleration;
+					if (goToSAngles.x < 0)
+						goToSAngles.x += 360;
+					if (goToSAngles.x > 360)
+						goToSAngles.x -= 360;
 
 					//Check and apply upangle, no clamping here :)			UpAngle
-					float afterAround = upAngle + mouseY * mouseAcceleration;
+					float afterAround = goToSAngles.y + mouseY * mouseAcceleration;
 					if ( 0 < afterAround && afterAround < 180)
-						upAngle = afterAround;
+						goToSAngles.y = afterAround;
 
 					//Apply distance with smoothing, then clamp :) 			Distance
 					distance = distance + distance * (-scroll * 0.5f);
@@ -175,17 +175,21 @@ public class CameraControlAdva : MonoBehaviour {
 
 				//Apply rotation and FOV with smoothing based on if it's a planet or not
 				Vector3 toSet;
+//				toSet = Vector3.Slerp (Sphere.getByDegrees (lastToSAngles), Sphere.getByDegrees (goToSAngles), 0.5f);
+//				lastToSAngles = Sphere.getByPosition (toSet);
+				toSet = Sphere.getByDegrees(goToSAngles);
+				lastToSAngles = goToSAngles;
+
+				toSet *= distance;
 				if (planetView && planet != null) {
-					toSet = Sphere.getByDegrees (aroundAngle, upAngle) * distance;
 					cam.fieldOfView = (cam.fieldOfView * 0.95f) + (planetFOV * 0.05f);
 				} else {
-					toSet = Sphere.getByDegrees (aroundAngle, upAngle) * distance;
 					toSet.y += yOffset * distance;
 
 					cam.fieldOfView = (cam.fieldOfView * 0.95f) + (normalFOV * 0.05f);
 
 					if (rotationToChange)
-						rotationToChange.yOffset = -aroundAngle;
+						rotationToChange.yOffset = -lastToSAngles.x;
 				}
 				if (targetOrientation)
 					toSet = toFollow.transform.TransformDirection (toSet);
@@ -195,7 +199,6 @@ public class CameraControlAdva : MonoBehaviour {
 			cam.fieldOfView = (cam.fieldOfView * 0.95f) + (planetFOV * 0.05f);
 //			myself.parent = startingParent;
 //			myself.localPosition = localStartingPos;
-
 			//if (Vector3.Distance (myself.localPosition,localStartingPos) < 0.00001f)
 			//	disableYourself ();
 		} 
@@ -237,8 +240,8 @@ public class CameraControlAdva : MonoBehaviour {
 		if (value)
 			dir = toFollow.transform.InverseTransformDirection (dir);
 		Vector2 angles = Sphere.getByPosition (dir);
-		aroundAngle = angles.x;
-		upAngle = angles.y;
+		lastToSAngles.x = angles.x;
+		lastToSAngles.y = angles.y;
 	}
 	public void useTOToggle(){
 		useTargetOrientation (!targetOrientation);
@@ -251,7 +254,7 @@ public class CameraControlAdva : MonoBehaviour {
 		//if (viewMode == ViewMode.around)
 		//	gameObject.transform.parent = gO.transform;
 
-		if (gO.tag == "planet" || gO.tag == "planetRB") {
+		if (gO.tag == "planet" || gO.tag == "planetRB" || gO.tag == "star") {
 			planet = gO;
 			//Basically a zoom into a planet by calculating it's up and around angle based on where it is
 			// in reference to the planet and also taking the planet's radius into account :)
@@ -280,8 +283,8 @@ public class CameraControlAdva : MonoBehaviour {
 		Vector3 dir = positionWanted - toFollow.transform.position;
 		//dir = gO.transform.InverseTransformDirection (dir);
 		Vector2 angles = Sphere.getByPosition (dir);
-		aroundAngle = angles.x;
-		upAngle = angles.y;
+		lastToSAngles.x = angles.x;
+		lastToSAngles.y = angles.y;
 
 	}
 
