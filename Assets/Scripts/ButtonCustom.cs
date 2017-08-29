@@ -72,7 +72,7 @@ public class ButtonCustom : MonoBehaviour{
 	}
 
 	private bool hit = false;
-	private bool hit2 = false;
+//	private bool hit2 = false;
 	void beingHit(){
 		hit = true;
 	}

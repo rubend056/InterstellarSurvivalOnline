@@ -70,21 +70,15 @@ public class PointerPick : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		if (ni != null && !ni.localPlayer)
-//			return;
-		
-		//buildToggle ();
-		//inventoryToggle ();
-		//buildingUIUpdate ();
 
 		doRaycast ();
 
 		if (Input.GetMouseButtonDown(0) && !PlayerController.spawned && !EventSystem.current.IsPointerOverGameObject()) {
 
 			if (hitSomething) {
-				DebugConsole.Log (rayHit.collider.gameObject.tag);
+//				DebugConsole.Log (rayHit.collider.gameObject.tag);
 				string tagL = rayHit.collider.gameObject.tag;
-				if (rayHit.collider.gameObject != selectedPlanet && (tagL == "planet" || tagL == "planetRB")) {
+				if (rayHit.collider.gameObject != selectedPlanet && (tagL == "planet" || tagL == "planetRB" || tagL == "star")) {
 					
 					selectedPlanet = rayHit.collider.gameObject;
 					var destruction = selectedPlanet.GetComponent<PlanetDestruction> ();
@@ -93,7 +87,8 @@ public class PointerPick : MonoBehaviour {
 					
 					previousPlanet = CameraControlAdva.instance.toFollow;
 					CameraControlAdva.instance.changeFollow (selectedPlanet);
-					NetTransportManager.instance.togglePlayerSpawner (!PlayerController.spawned);
+					if (tagL != "star")
+						NetTransportManager.instance.togglePlayerSpawner (!PlayerController.spawned);
 				} 
 			}else {
 				selectedPlanet = null;

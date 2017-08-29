@@ -1533,7 +1533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1776467852086396
 GameObject:
   m_ObjectHideFlags: 1
@@ -1891,8 +1891,8 @@ Transform:
   m_LocalPosition: {x: 0.00016, y: 0.00098, z: -0.00359}
   m_LocalScale: {x: 0.0063932855, y: 0.006393284, z: 0.00639328}
   m_Children:
-  - {fileID: 4989440634285768}
   - {fileID: 4487724835066170}
+  - {fileID: 4989440634285768}
   - {fileID: 4249954214908378}
   m_Father: {fileID: 4117664463207818}
   m_RootOrder: 3
@@ -2744,7 +2744,7 @@ Transform:
   m_Children:
   - {fileID: 4957277021345028}
   m_Father: {fileID: 4020564790170360}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4488384569667906
 Transform:
@@ -3409,7 +3409,7 @@ Transform:
   - {fileID: 4972710085711008}
   - {fileID: 4004972699684766}
   m_Father: {fileID: 4020564790170360}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 41.001003, y: 11.179001, z: 16.763}
 --- !u!4 &4990713356520250
 Transform:
@@ -4425,7 +4425,7 @@ BoxCollider:
   m_GameObject: {fileID: 1998562280637032}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.014833751, y: 0.0057395166, z: 0.035207793}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4593,20 +4593,6 @@ Light:
   m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4643,20 +4629,6 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4689,6 +4661,10 @@ MonoBehaviour:
   sendRate: 0
   updateType: 1
   smoothing: 1
+  localUpdate: 0
+  pos: 1
+  rot: 1
+  sca: 1
 --- !u!114 &114316411867223224
 MonoBehaviour:
   m_ObjectHideFlags: 1

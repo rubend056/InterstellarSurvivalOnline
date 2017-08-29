@@ -34,7 +34,7 @@ public class CameraControlAdva : MonoBehaviour {
 	[HideInInspector]
 	public PlayerController rotationToChange;
 
-	public GameObject playerObject;
+//	public GameObject playerObject;
 	public GameObject pauseMenu;
 
 
@@ -132,7 +132,7 @@ public class CameraControlAdva : MonoBehaviour {
 //							mouseX = 0;
 //							mouseY = 0;
 //						}
-					} else if (Input.GetMouseButton (1)) {//Right click
+					} else if (Input.GetMouseButton (2)) {//Right click
 						//Mouse Control
 						mouseX = Input.GetAxis ("Mouse X");
 						mouseY = Input.GetAxis ("Mouse Y");
@@ -346,6 +346,10 @@ public class CameraControlAdva : MonoBehaviour {
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}
+	}
+
+	public void spawnPlayer(){
+		
 	}
 
 	/*

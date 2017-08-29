@@ -21,8 +21,8 @@ public class LandingManager : MonoBehaviour {
 		if (ni.HasAuthority) {
 			List<SpawningInfo> availableSpawns = GameObject.Find ("PlayerSpawnHolder").GetComponent<SpawningManager> ().availableSpawns;
 			int randomNumber = (int)(Random.value * availableSpawns.Count);
-			gameObject.transform.position = availableSpawns [randomNumber].position;
-			gameObject.transform.rotation = availableSpawns [randomNumber].rotation;
+			gameObject.transform.position = availableSpawns[randomNumber].trans.TransformPoint (availableSpawns [randomNumber].position);
+			gameObject.transform.rotation = Quaternion.LookRotation(availableSpawns[randomNumber].trans.TransformDirection( availableSpawns [randomNumber].rotation));
 		}
 		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		startAnimation ();

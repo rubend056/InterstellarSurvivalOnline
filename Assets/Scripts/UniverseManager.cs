@@ -277,6 +277,10 @@ using UnityEngine.UI;
 			ssInstances [starIndex].planets.RemoveAt (planetIndex);
 		}
 	}
+
+	public void OnValidate(){
+		Time.timeScale = gameSpeed;
+	}
 }
 
 [System.Serializable]

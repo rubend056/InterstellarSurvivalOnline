@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterstellarSurvivalOnline", "Assembly-CSharp.csproj", "{764BA43C-1436-3BB1-FFE5-B58D884F0632}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterstellarSurvivalOnline", "Assembly-CSharp-firstpass.csproj", "{6963710B-C466-8559-ED87-29B6286E9EC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterstellarSurvivalOnline", "Assembly-CSharp.csproj", "{764BA43C-1436-3BB1-FFE5-B58D884F0632}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterstellarSurvivalOnline", "Assembly-CSharp-Editor.csproj", "{7B9D0CA3-0FAF-1184-D8A2-876034609496}"
 EndProject
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6963710B-C466-8559-ED87-29B6286E9EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6963710B-C466-8559-ED87-29B6286E9EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6963710B-C466-8559-ED87-29B6286E9EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6963710B-C466-8559-ED87-29B6286E9EC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{764BA43C-1436-3BB1-FFE5-B58D884F0632}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B9D0CA3-0FAF-1184-D8A2-876034609496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B9D0CA3-0FAF-1184-D8A2-876034609496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B9D0CA3-0FAF-1184-D8A2-876034609496}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -264,7 +264,8 @@ public class PlanetGenerator3 : MonoBehaviour {
 			planetInfo.lodIdentifier [i] = LOD;
 			//planetInfo.chunkObject [i].AddComponent<PlanetChunkID> ().chunkID = i;
 			gO.transform.localEulerAngles = getAngle ((int)xyz.z);
-			gO.AddComponent <MeshCollider>();
+			planetInfo.mcArray[i] = gO.AddComponent <MeshCollider>();
+			planetInfo.mcArray [i].enabled = false;
 		}
 		//Fixing the terrain to concadenate well with eachother
 //		for (int i = 0; i < planetInfo.chunksAmmount; i++) {
@@ -429,6 +430,7 @@ public class PlanetGenerator3 : MonoBehaviour {
 		planetInfo.chunkArray [index].localPosition = Vector3.zero;
 		updateMesh (index,(int)xyz.z, planetInfo.chunkObject[index],planetInfo.chunkArray[index], lod, planetInfo.mfChunkArray [index], xDisp, yDisp, interval2, true);
 		planetInfo.lodIdentifier [index] = lod;
+		planetInfo.mcArray [index].enabled = collisions;
 	}
 
 	private void setAllLOD(int lod, bool trees){
@@ -465,28 +467,25 @@ public class PlanetGenerator3 : MonoBehaviour {
 		mf.sharedMesh = mesh.CreateMesh ();
 	}
 
-	void updateMesh(int id,int idz, GameObject terrainObject, Transform gO, int lod, MeshFilter mf, float xDisp, float yDisp, float interval2, bool update){
+	void updateMesh(int index,int idz, GameObject terrainObject, Transform gO, int lod, MeshFilter mf, float xDisp, float yDisp, float interval2, bool update){
 		//if (mf.sharedMesh!=null)mf.sharedMesh.Clear();
 
-		MeshData mesh = PlaneGenerator.Generate (interval2 * 2, interval2 * 2, textQual / lod - 2, textQual / lod - 2);
+		MeshData meshData = PlaneGenerator.Generate (interval2 * 2, interval2 * 2, textQual / lod - 2, textQual / lod - 2);
 		if (sphere)
-			mesh.vertices = spheritize (mesh.vertices, new Vector3 (xDisp, radius, yDisp));
+			meshData.vertices = spheritize (meshData.vertices, new Vector3 (xDisp, radius, yDisp));
 		if (useNoise)
-			mesh.vertices = addNormalNoise (mesh.vertices, planetInfo.nmArray [id], meshHeightMultiplier);
-		Vector3 movement = meshAverage (mesh.vertices);
+			meshData.vertices = addNormalNoise (meshData.vertices, planetInfo.nmArray [index], meshHeightMultiplier);
+		Vector3 movement = meshAverage (meshData.vertices);
 		gO.localPosition += translateByPivot(idz,new Vector2(movement.x, movement.z), movement.y);
-		mesh.vertices = translateMesh (mesh.vertices, -movement);
+		meshData.vertices = translateMesh (meshData.vertices, -movement);
 		//Debug.Log (mesh.vertices.Length.ToString());
-		Mesh meshObject = mesh.CreateMesh ();
+		Mesh mesh = meshData.CreateMesh ();
 		if (!update)
-			mf.sharedMesh = meshObject;
+			mf.sharedMesh = mesh;
 		else
-			mf.mesh = meshObject;
+			mf.mesh = mesh;
 
-		if (terrainObject.GetComponent(typeof(MeshCollider))!=null){
-			MeshCollider mC = terrainObject.GetComponent (typeof(MeshCollider)) as MeshCollider;
-			mC.sharedMesh = meshObject;
-		}
+		planetInfo.mcArray [index].sharedMesh = mesh;
 	}
 
 	Vector2 getOffset(Vector3 xyz){

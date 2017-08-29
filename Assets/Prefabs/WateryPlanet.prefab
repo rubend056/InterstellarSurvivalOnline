@@ -7446,6 +7446,10 @@ MonoBehaviour:
   sendRate: 5
   updateType: 1
   smoothing: 1
+  localUpdate: 0
+  pos: 1
+  rot: 1
+  sca: 1
 --- !u!114 &114089188673062154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8798,9 +8802,11 @@ MonoBehaviour:
   - distance: 1
     lod: 3
     showTrees: 1
+    collisions: 1
   - distance: 1.2
     lod: 6
     showTrees: 0
+    collisions: 1
   pMaterial: {fileID: 0}
   waterPrefab: {fileID: 0}
   waterHeight: 0.1
@@ -10310,7 +10316,6 @@ LineRenderer:
     numCapVertices: 3
     alignment: 0
     textureMode: 0
-    generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!122 &122816998302942366

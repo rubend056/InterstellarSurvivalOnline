@@ -26,11 +26,11 @@ public class Gravity : MonoBehaviour {
 		updatePlanets ();
 		forceP = 0;
 		foreach (planetsGInfo planetR in planetInfoArray) {
-			
-			Vector3 direction = planetR.dir;
 
+			float distSqr = (planetR.rb.transform.position - thisTransform.position).sqrMagnitude;
+			Vector3 direction = (planetR.rb.transform.position - thisTransform.position).normalized;
 
-			float force = Time.deltaTime * 60 *  getGravityForce(planetR.rb.mass, thisRigidBody.mass, planetR.distSqr);/*Sphere.getFictionalForce(gravityMultiplier.multiplier * planetR.rb.mass,distance) * divisionFactor*/;
+			float force = Time.deltaTime * 60 *  getGravityForce(planetR.rb.mass, thisRigidBody.mass, distSqr);/*Sphere.getFictionalForce(gravityMultiplier.multiplier * planetR.rb.mass,distance) * divisionFactor*/;
 			Vector3 forceVector = direction * force;
 
 			thisRigidBody.AddForce (forceVector, ForceMode.Force);
@@ -42,27 +42,29 @@ public class Gravity : MonoBehaviour {
 	public void updatePlanets(){
 		
 		GameObject[] planets = GameObject.FindGameObjectsWithTag("planetRB");
+		GameObject[] stars = GameObject.FindGameObjectsWithTag ("star");
+
 
 		List<GameObject> planetsL = new List<GameObject> ();		
 		planetsL.AddRange (planets);
+		planetsL.AddRange (stars);
 
-		if (planetsL.Contains (this.gameObject))//If any of these gameObjects is youself, then remove yourself
-			planetsL.Remove (this.gameObject);
+		if (planetsL.Contains (gameObject))//If any of these gameObjects is youself, then remove yourself
+			planetsL.Remove (gameObject);
 
 		planets = planetsL.ToArray ();
 
 		planetInfoArray = new planetsGInfo[planets.Length];
 		for (int i = 0; i < planetInfoArray.Length; i++) {
-			var planetInfo = new planetsGInfo ();
+			var planetR = new planetsGInfo ();
 
-			planetInfo.rb = planets [i].GetComponent<Rigidbody> ();
+			planetR.rb = planets [i].GetComponent<Rigidbody> ();
 
-			planetInfo.distSqr = (planets[i].transform.position - thisTransform.position).sqrMagnitude;
+//			planetR.distSqr = (planets[i].transform.position - thisTransform.position).sqrMagnitude;
+//			Vector3 direction = (planetR.rb.transform.position - thisTransform.position).normalized;
+//			planetR.dir = direction;
 
-			Vector3 direction = (planetInfo.rb.transform.position - thisTransform.position).normalized;
-			planetInfo.dir = direction;
-
-			planetInfoArray [i] = planetInfo;
+			planetInfoArray [i] = planetR;
 		}
 		//waitTime = /*Mathf.Clamp (2/((thisRigidBody.velocity.magnitude*0.01f)+1),0.1f,1f)*/0.01f;
 	}
@@ -81,7 +83,7 @@ public class Gravity : MonoBehaviour {
 
 	private class planetsGInfo{
 		public Rigidbody rb;
-		public Vector3 dir;
-		public float distSqr;
+//		public Vector3 dir;
+//		public float distSqr;
 	}
 }

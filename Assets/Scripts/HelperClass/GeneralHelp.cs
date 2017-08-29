@@ -31,4 +31,16 @@ public class GeneralHelp : MonoBehaviour {
 		}
 		return connIDs.ToArray();
 	}
+
+	public static GameObject[] getAllChildren(Transform trans){
+		List<GameObject> gOList = new List<GameObject> ();
+		for (int i = 0; i < trans.childCount; i++) {
+			var childTrans = trans.GetChild (i);
+			gOList.Add(childTrans.gameObject);
+			if (childTrans.childCount > 0){
+				gOList.AddRange (getAllChildren (childTrans));
+			}
+		}
+		return gOList.ToArray ();
+	}
 }

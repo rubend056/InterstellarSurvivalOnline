@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour {
 
 	public static bool spawned = false;
 
-	public enum Continent{NorthAmerica, SouthAmerica, Europe, Africa, Antartica, Asia, Australia};
+//	public enum Continent{NorthAmerica, SouthAmerica, Europe, Africa, Antartica, Asia, Australia};
+//
+//	public Continent continent = Continent.NorthAmerica;
 
-	public Continent continent = Continent.NorthAmerica;
-
-	string playerName = "RubenD";
+//	string playerName = "RubenD";
 	private float speed;
 
 	public float yOffset = 0;
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 
 	//All other references **********
 	private Transform cameraTransform;
+	public GameObject playerPrefab;
 	public GameObject bulletPrefab;
 	public Transform planet;
 
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour {
 			return;
 		inputControl ();
 		alignToPlanet ();
-		fireHandler ();
+//		fireHandler ();
 	}
 
 	public void changePlayerInstance(GameObject playerInst){
@@ -92,21 +93,29 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void spawn(){
+		var planetInst = CameraControlAdva.instance.toFollow;
+		changePlayerInstance (GameObject.Instantiate (playerPrefab));
+		spawnPlayer (planetInst);
+	}
+
+	private void spawnPlayer(GameObject whereToSpawn){
+
 		//disabling HealthBar
 		if (healthBar != null)
 			healthBar.SetActive (false);
 
 		//getting SpawnManager
-		spawnManager = GameObject.Find ("SpawningManager").GetComponent<SpawningManager> ();
+		spawnManager = whereToSpawn.GetComponent<SpawningManager> ();
 		//spawnManager.resetMPool (maxBulletAmmount, gameObject.GetComponent<NetworkIdentity>().connectionToServer);
 
 		//spawning
-		List<SpawningInfo> availableSpawns = spawnManager.availableSpawns;
-		int randomNumber = (int)(Random.value * availableSpawns.Count);
-		planet = GameObject.FindGameObjectWithTag ("planet").transform;
-		ownTransform.position = availableSpawns [randomNumber].position; 
+		int randomNumber = (int)(Random.value * spawnManager.availableSpawns.Count);
+		planet = whereToSpawn.transform;
+		SpawningInfo spInfo = spawnManager.availableSpawns [randomNumber];
+		ownTransform.position = spInfo.trans.TransformPoint (spInfo.position); 
 		alignToPlanet ();
 		ownTransform.position += (ownTransform.up * 5);
+
 
 		//setting camera up
 		GameObject cameraObj = GameObject.FindGameObjectWithTag ("MainCamera");
@@ -125,7 +134,6 @@ public class PlayerController : MonoBehaviour {
 		SmoothLookAtC slac = cameraObj.GetComponent<SmoothLookAtC> ();
 		slac.target = gameObject.transform;
 
-		waitToSetName ();
 	}
 
 	void inputControl(){
@@ -194,118 +202,118 @@ public class PlayerController : MonoBehaviour {
 		torsoTransform.localEulerAngles = localAngles;
 	}
 
-	void fireHandler(){
-		if ( Input.GetMouseButtonUp(0) && !anim.GetBool ("Running")) {
-			CmdFire (bulletSpawn.position, bulletSpawn.forward);
-		}
-	}
+//	void fireHandler(){
+//		if ( Input.GetMouseButtonUp(0) && !anim.GetBool ("Running")) {
+//			CmdFire (bulletSpawn.position, bulletSpawn.forward);
+//		}
+//	}
+//
+//
+//	void RpcPlaySound(float pitch){
+//		AudioSource audio = bulletSpawn.GetComponent<AudioSource> ();
+//		audio.pitch = pitch;
+//		audio.Play ();
+//	}
+//
+//
+//	void CmdFire(Vector3 position, Vector3 rotVector){
+//		// Set up bullet on server
+//		var bullet = (GameObject)Instantiate(bulletPrefab, position, Quaternion.identity);
+//		bullet.GetComponent<Rigidbody>().velocity = rotVector * initialBulletSpeed;
+//
+//		// spawn bullet on client, custom spawn handler will be called
+////		NetworkServer.SpawnWithClientAuthority(bullet, connectionToClient);
+//		AudioSource audio = bulletSpawn.GetComponent<AudioSource> ();
+//		audio.pitch = Random.Range (0.8f, 1.8f);
+//		audio.Play ();
+//		RpcPlaySound (audio.pitch);
+//
+//		// when the bullet is destroyed on the server it wil automatically be destroyed on clients
+//		StartCoroutine (Destroy (bullet, bulletLifetime));
+//	}
+//
+//
+//	public IEnumerator Destroy(GameObject gO, float timer)
+//	{
+//		yield return new WaitForSeconds (timer);
+//		if (gO!=null)
+//			CmdUnspawnObject (gO);
+//	}
+//
+//	void OnCollisionEnter(Collision collision){
+////		if (!ni.localPlayer)
+////			return;
+//		GameObject collisionObject = collision.gameObject;
+//		if (collisionObject.tag == "Bullet" && !collisionObject.GetComponent<NetIdentityCustom>().HasAuthority) {
+//			DebugConsole.Log ("tookDamage", "warning");
+//			//gameObject.GetComponent<HealthController> ().CmdDamage (5f);
+//
+//			CmdUnspawnObject(collisionObject);
+//		}
+//	}
+//
+//
+//	void CmdUnspawnObject(GameObject gO){
+//		GameObject.Destroy (gO);
+////		NetworkServer.UnSpawn (gO);
+//	}
+//
+//
+//	private void onPlayerChangeName(string name){
+//		playerName = name;
+//
+//		if (NetTransportCustom.server) {
+//			List<GameObject> players = new List<GameObject> ();
+//			players.AddRange (GameObject.FindGameObjectsWithTag ("Player"));
+//
+//			if (players.Contains (this.gameObject))
+//				players.Remove (this.gameObject);
+//
+//			bool foundPlayer = false;
+//			for (int i = 0; i < players.Count; i++) {
+//				if (players [i].GetComponent<PlayerController> ().playerName == name) {
+//					//Communication.instance.TargetSendMessage (players [i].GetComponent<NetworkIdentity> ().connectionToClient, 
+//					//	"A player has already joined with your username, your player will be disabled until then", Color.yellow, 2);
+//					disableYourself (true);
+//					foundPlayer = true;
+//					break;
+//				}
+//			}
+//			if (!foundPlayer)
+//				disableYourself (false);
+//		}
+//
+//		nameText.text = name;
+//	}
 
-
-	void RpcPlaySound(float pitch){
-		AudioSource audio = bulletSpawn.GetComponent<AudioSource> ();
-		audio.pitch = pitch;
-		audio.Play ();
-	}
-
-
-	void CmdFire(Vector3 position, Vector3 rotVector){
-		// Set up bullet on server
-		var bullet = (GameObject)Instantiate(bulletPrefab, position, Quaternion.identity);
-		bullet.GetComponent<Rigidbody>().velocity = rotVector * initialBulletSpeed;
-
-		// spawn bullet on client, custom spawn handler will be called
-//		NetworkServer.SpawnWithClientAuthority(bullet, connectionToClient);
-		AudioSource audio = bulletSpawn.GetComponent<AudioSource> ();
-		audio.pitch = Random.Range (0.8f, 1.8f);
-		audio.Play ();
-		RpcPlaySound (audio.pitch);
-
-		// when the bullet is destroyed on the server it wil automatically be destroyed on clients
-		StartCoroutine (Destroy (bullet, bulletLifetime));
-	}
-
-
-	public IEnumerator Destroy(GameObject gO, float timer)
-	{
-		yield return new WaitForSeconds (timer);
-		if (gO!=null)
-			CmdUnspawnObject (gO);
-	}
-
-	void OnCollisionEnter(Collision collision){
-//		if (!ni.localPlayer)
-//			return;
-		GameObject collisionObject = collision.gameObject;
-		if (collisionObject.tag == "Bullet" && !collisionObject.GetComponent<NetIdentityCustom>().HasAuthority) {
-			DebugConsole.Log ("tookDamage", "warning");
-			//gameObject.GetComponent<HealthController> ().CmdDamage (5f);
-
-			CmdUnspawnObject(collisionObject);
-		}
-	}
-
-
-	void CmdUnspawnObject(GameObject gO){
-		GameObject.Destroy (gO);
-//		NetworkServer.UnSpawn (gO);
-	}
-
-
-	private void onPlayerChangeName(string name){
-		playerName = name;
-
-		if (NetTransportCustom.server) {
-			List<GameObject> players = new List<GameObject> ();
-			players.AddRange (GameObject.FindGameObjectsWithTag ("Player"));
-
-			if (players.Contains (this.gameObject))
-				players.Remove (this.gameObject);
-
-			bool foundPlayer = false;
-			for (int i = 0; i < players.Count; i++) {
-				if (players [i].GetComponent<PlayerController> ().playerName == name) {
-					//Communication.instance.TargetSendMessage (players [i].GetComponent<NetworkIdentity> ().connectionToClient, 
-					//	"A player has already joined with your username, your player will be disabled until then", Color.yellow, 2);
-					disableYourself (true);
-					foundPlayer = true;
-					break;
-				}
-			}
-			if (!foundPlayer)
-				disableYourself (false);
-		}
-
-		nameText.text = name;
-	}
-
-//	[ServerCallback]
-	private void disableYourself(bool what){
-		RpcDisableYourself (!what);
-		this.gameObject.SetActive (!what);
-	}
-
-//	[ClientRpc]
-	private void RpcDisableYourself(bool what){
-		this.gameObject.SetActive (what);
-	}
-
-	private IEnumerator waitToSetName(){
-		yield return new WaitForSeconds (2);
-		//setName(CustomNMUI.instance.playerName);
-	}
-
-	public void setName(string name){
-		playerName = name;
-		onPlayerChangeName (name);
-	}
-
-//	[Command]
-	public void CmdChangeName(string name){
-		playerName = name;
-	}
-
-//	[Command]
-	public void CmdChangeContinent(Continent continentLocal){
-		continent = continentLocal;
-	}
+////	[ServerCallback]
+//	private void disableYourself(bool what){
+//		RpcDisableYourself (!what);
+//		this.gameObject.SetActive (!what);
+//	}
+//
+////	[ClientRpc]
+//	private void RpcDisableYourself(bool what){
+//		this.gameObject.SetActive (what);
+//	}
+//
+//	private IEnumerator waitToSetName(){
+//		yield return new WaitForSeconds (2);
+//		//setName(CustomNMUI.instance.playerName);
+//	}
+//
+//	public void setName(string name){
+//		playerName = name;
+//		onPlayerChangeName (name);
+//	}
+//
+////	[Command]
+//	public void CmdChangeName(string name){
+//		playerName = name;
+//	}
+//
+////	[Command]
+//	public void CmdChangeContinent(Continent continentLocal){
+//		continent = continentLocal;
+//	}
 }

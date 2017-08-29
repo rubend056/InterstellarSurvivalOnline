@@ -7,7 +7,7 @@ using UnityEngine;
 public class NetTransportObjectSync : NetTransportText{
 
 	public enum SyncType{Spawning, TransUpdate, Request};
-	public enum TransUpdateType{Transform, /*Position, Rotation, Scale, Rigidbody,*/ RigidbodyAndTrans};
+	public enum TransUpdateType{Transform, /*Position, Rotation, Scale, Rigidbody,*/ TransAndRigidbody};
 	public enum RequestType{Universe};
 
 	public int genIDIndex = 0;
@@ -77,19 +77,19 @@ public class NetTransportObjectSync : NetTransportText{
 		return bc.getBytes ();
 	}
 
+//	private byte[] transUpdateBytes(IdentityAndTransform iat){
+//		return transUpdateBytes (iat.netTrans.trans, iat.netTrans.updateType, iat.netIdentity.objID);
+//	}
 	private byte[] transUpdateBytes(IdentityAndTransform iat){
-		return transUpdateBytes (iat.netTrans.trans, iat.netTrans.updateType, iat.netIdentity.objID);
-	}
-	private byte[] transUpdateBytes(Transform transform, TransUpdateType type, int objID){
 		ByteConstructor bc = new ByteConstructor ();
 		bc.addLevels(new int[]{(int)DataType.Sync,(int)SyncType.TransUpdate});
 
-		bc.add(objID);
-		bc.add((int)type);
-		switch(type){
+		bc.add(iat.netIdentity.objID);
+		bc.add((int)iat.netTrans.updateType);
+		switch(iat.netTrans.updateType){
 		case TransUpdateType.Transform:
-			bc.add (transform.position);
-			bc.add (transform.rotation);
+			bc.add (iat.netTrans.getPosition());
+			bc.add (iat.netTrans.getRotation());
 			bc.add (transform.localScale);
 			break;
 //		case TransUpdateType.Position:
@@ -101,13 +101,14 @@ public class NetTransportObjectSync : NetTransportText{
 //		case TransUpdateType.Scale:
 //			
 //			break;
-		case TransUpdateType.RigidbodyAndTrans:
+		case TransUpdateType.TransAndRigidbody:
+			bc.add (iat.netTrans.getPosition());
+			bc.add (iat.netTrans.getRotation());
+			bc.add (transform.localScale);
+
 			var body = transform.GetComponent<Rigidbody> ();
 			bc.add (body.velocity);
 			bc.add (body.angularVelocity);
-			bc.add (transform.position);
-			bc.add (transform.rotation);
-			bc.add (transform.localScale);
 			break;
 		default:
 			break;
@@ -135,9 +136,7 @@ public class NetTransportObjectSync : NetTransportText{
 			var netTrans = IDAndTransforms [transIndex].netTrans;
 			switch (updateType) {
 			case TransUpdateType.Transform:
-				netTrans.moveTo (br.getVector3 ());
-				netTrans.rotateTo (br.getQuaternion ());
-				netTrans.trans.localScale = br.getVector3 ();
+				netTrans.receiveTransform (br);
 				break;
 //			case TransUpdateType.Position:
 //				IDAndTransforms[transIndex].netTrans .moveTo(br.getVector3 ());
@@ -148,13 +147,11 @@ public class NetTransportObjectSync : NetTransportText{
 //			case TransUpdateType.Scale:
 //				IDAndTransforms[transIndex].netTrans .trans.localScale = br.getVector3 ();
 //				break;
-			case TransUpdateType.RigidbodyAndTrans:
+			case TransUpdateType.TransAndRigidbody:
+				netTrans.receiveTransform (br);
 				var body = netTrans.trans.GetComponent<Rigidbody> ();
 				body.velocity = br.getVector3 ();
 				body.angularVelocity = br.getVector3 ();
-				netTrans.moveTo (br.getVector3 ());
-				netTrans.rotateTo (br.getQuaternion ());
-				netTrans.trans.localScale = br.getVector3 ();
 				break;
 			}
 		} else {
@@ -220,7 +217,8 @@ public class NetTransportObjectSync : NetTransportText{
 
 	public void sendUniverseDataBegin(int connID){
 		for(int i = 0;i<IDAndTransforms.Count;i++) {
-			send (getSpawnBytes (IDAndTransforms [i]), connID, reliableChannel);
+			if (IDAndTransforms[i].child == false)
+				send (getSpawnBytes (IDAndTransforms [i]), connID, reliableChannel);
 		}
 	}
 	public void sendUniverseDataUpdate(int connID){
@@ -269,14 +267,20 @@ public class NetTransportObjectSync : NetTransportText{
 	#region NetObjSpawn Functions
 
 	public IdentityAndTransform spawnObjectSync(int prefabIndex, int authorityID, Vector3 pos, Quaternion rot, int objectID){
-
 		destroyObjectByID (objectID);
 		var instance = (GameObject)GameObject.Instantiate (spawnableObjects [prefabIndex], pos, rot);
 
-		var iat = new IdentityAndTransform (instance, prefabIndex, objectID, authorityID);
+		var iat = new IdentityAndTransform (instance, prefabIndex, objectID, authorityID, false);
 
 		IDAndTransforms.Add (iat);
 		coroutines.Add (StartCoroutine(syncCoroutine(iat)));
+
+		foreach (GameObject gO in GeneralHelp.getAllChildren(instance.transform)) {
+			var netIdent = gO.GetComponent<NetIdentityCustom> ();
+			if (netIdent != null)
+				IDAndTransforms.Add (new IdentityAndTransform (gO, prefabIndex, ++objectID, authorityID, true));
+		}
+
 		return iat;
 	}
 	public IdentityAndTransform spawnObject(int prefabIndex, int authorityID, Vector3 pos, Quaternion rot){
@@ -285,10 +289,17 @@ public class NetTransportObjectSync : NetTransportText{
 
 		var instance = (GameObject)GameObject.Instantiate (spawnableObjects [prefabIndex], pos, rot);
 
-		var iat = new IdentityAndTransform (instance, prefabIndex, generateID(), authorityID);
+		var iat = new IdentityAndTransform (instance, prefabIndex, generateID(), authorityID, false);
 
 		IDAndTransforms.Add (iat);
 		coroutines.Add (StartCoroutine(syncCoroutine(iat)));
+
+		foreach (GameObject gO in GeneralHelp.getAllChildren(instance.transform)) {
+			var netIdent = gO.GetComponent<NetIdentityCustom> ();
+			if (netIdent != null)
+				IDAndTransforms.Add (new IdentityAndTransform (gO, prefabIndex, generateID (), authorityID, true));
+		}
+
 		return iat;
 	}
 
@@ -303,10 +314,12 @@ public class IdentityAndTransform{
 	public int prefabIndex = 0;
 	public NetIdentityCustom netIdentity;
 	public NetTransformCustom netTrans;
+	public bool child = false;
 
-	public IdentityAndTransform(GameObject instanceL, int prefabIndexL, int objID, int authorityID){
+	public IdentityAndTransform(GameObject instanceL, int prefabIndexL, int objID, int authorityID, bool childL){
 		instance = instanceL;
 		prefabIndex = prefabIndexL;
+		child = childL;
 
 		netIdentity = instanceL.GetComponent <NetIdentityCustom>();
 		if (netIdentity == null) 

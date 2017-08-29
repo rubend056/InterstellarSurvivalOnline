@@ -63,7 +63,7 @@ public class MiniMapController : MonoBehaviour {
 			rectT.anchoredPosition3D = lPos;
 
 			info.playerImage = playerUI.GetComponent<Image> ();
-			info.playerImage.color = getColorBasedOnContinent (info.controller.continent);
+			info.playerImage.color = getColorBasedOnContinent ();
 			playersInfo [i] = info;
 		}
 
@@ -92,24 +92,24 @@ public class MiniMapController : MonoBehaviour {
 	}
 
 
-	public Color getColorBasedOnContinent(PlayerController.Continent continent){
-		switch (continent) {
-		case PlayerController.Continent.NorthAmerica:
-			return Color.green;
-		case PlayerController.Continent.SouthAmerica:
-			return Color.yellow;
-		case PlayerController.Continent.Asia:
-			return Color.red;
-		case PlayerController.Continent.Antartica:
-			return Color.magenta;
-		case PlayerController.Continent.Europe:
-			return Color.cyan;
-		case PlayerController.Continent.Africa:
-			return Color.gray;
-		case PlayerController.Continent.Australia:
-			return Color.blue;
-		}
-		return Color.black;
+	public Color getColorBasedOnContinent(/*PlayerController.Continent continent*/){
+//		switch (continent) {
+//		case PlayerController.Continent.NorthAmerica:
+//			return Color.green;
+//		case PlayerController.Continent.SouthAmerica:
+//			return Color.yellow;
+//		case PlayerController.Continent.Asia:
+//			return Color.red;
+//		case PlayerController.Continent.Antartica:
+//			return Color.magenta;
+//		case PlayerController.Continent.Europe:
+//			return Color.cyan;
+//		case PlayerController.Continent.Africa:
+//			return Color.gray;
+//		case PlayerController.Continent.Australia:
+//			return Color.blue;
+//		}
+		return Color.blue;
 	}
 
 	private struct PlayerInfo{

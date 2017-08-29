@@ -49,8 +49,9 @@ public class ObjectPlacer : MonoBehaviour {
 		//DebugConsole.Log ("numPositions:" + spawnPositions.Length.ToString ());
 		spawnPoints = new SpawningInfo[spawnPositions.Length];
 		for (int i = 0; i < spawnPoints.Length; i++) {
-			spawnPoints [i].position = transToUse.TransformPoint (spawnPositions [i]);
-			spawnPoints [i].rotation = Quaternion.LookRotation (transToUse.TransformDirection (spawnDirections [i]));
+			spawnPoints [i].trans = transToUse;
+			spawnPoints [i].position = spawnPositions [i];
+			spawnPoints [i].rotation = spawnDirections [i];
 		}
 	}
 
@@ -187,7 +188,9 @@ public struct ObjectSpawn{
 	public Vector3 rotOffVar;
 }
 
+
 public struct SpawningInfo{
+	public Transform trans;
 	public Vector3 position;
-	public Quaternion rotation;
+	public Vector3 rotation;
 }
