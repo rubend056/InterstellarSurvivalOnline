@@ -2,7 +2,6 @@
 //using System.Collections.Generic;
 //using System;
 //using UnityEngine;
-//
 //public class NetHealth : MonoBehaviour{
 //	public static NetHealth instance;
 //	private enum CmdType{Damage, HealthSync};
