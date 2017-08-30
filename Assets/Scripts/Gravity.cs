@@ -9,7 +9,7 @@ public class Gravity : MonoBehaviour {
 	public float divisionFactor = 1;
 	public float forceP;
 //	public float distance;
-	public const float gravityConst = 0.0000000000667408f * 10000000000;
+	public const float gravityConst = 0.0000000000667408f * 100000000000;
 
 	Transform thisTransform;
 	Rigidbody thisRigidBody;
@@ -22,8 +22,12 @@ public class Gravity : MonoBehaviour {
 
 	}
 	// Update is called once per frame
+	int r = 0;
 	void Update () {
-		updatePlanets ();
+		if (r > 60) {
+			updatePlanets ();
+			r = 0;
+		}r++;
 		forceP = 0;
 		foreach (planetsGInfo planetR in planetInfoArray) {
 

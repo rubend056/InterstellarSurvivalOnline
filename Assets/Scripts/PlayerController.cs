@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour {
 	public float bulletLifetime = 10f;
 	public int maxBulletAmmount = 20;
 
+	public int spawningListOffset = 0;
+
 	//All other references **********
 	private Transform cameraTransform;
 	public GameObject playerPrefab;
@@ -60,7 +62,8 @@ public class PlayerController : MonoBehaviour {
 //		if (ni.localPlayer) {
 //			spawn ();
 //		}
-		
+		spawningListOffset = NetTransportManager.instance.spawnableObjects.Count;
+		NetTransportManager.instance.spawnableObjects.Add(playerPrefab);
 	}
 
 	// Update is called once per frame
@@ -94,7 +97,13 @@ public class PlayerController : MonoBehaviour {
 
 	public void spawn(){
 		var planetInst = CameraControlAdva.instance.toFollow;
-		changePlayerInstance (GameObject.Instantiate (playerPrefab));
+		var netInst = NetTransportManager.instance;
+		changePlayerInstance (netInst.spawnObject(
+			spawningListOffset + 0,
+			netInst.playerInfo.uniqueID,
+			Vector3.zero,
+			Quaternion.identity
+		).instance);
 		spawnPlayer (planetInst);
 	}
 
@@ -122,9 +131,9 @@ public class PlayerController : MonoBehaviour {
 		cameraTransform = cameraObj.transform;
 
 		CameraControlAdva CCA = cameraObj.GetComponent<CameraControlAdva> ();
-		CCA.rotationToChange = this;
+//		CCA.rotationToChange = ownTransform.gameObject;
 		CCA.planetView = false;
-		CCA.changeFollow (gameObject);
+		CCA.changeFollow (ownTransform.gameObject);
 		//CCA.invert = false;
 		CCA.yOffset = 1f;
 		CCA.toggleViewType (CameraControlAdva.ViewMode.around);
@@ -132,7 +141,7 @@ public class PlayerController : MonoBehaviour {
 
 		//CmdChangeContinent(CustomNMUI.instance.continent);
 		SmoothLookAtC slac = cameraObj.GetComponent<SmoothLookAtC> ();
-		slac.target = gameObject.transform;
+		slac.target = ownTransform;
 
 	}
 

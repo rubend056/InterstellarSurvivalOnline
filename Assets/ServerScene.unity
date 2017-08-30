@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -87,7 +87,7 @@ LightmapSettings:
     m_PVRFilteringAtrousNormalSigma: 1
     m_PVRFilteringAtrousPositionSigma: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1440,6 +1440,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: 60
+  m_LayoutPriority: 1
 --- !u!1 &854876280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,7 +2246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -146.6, y: -24.6}
+  m_AnchoredPosition: {x: -146.6, y: -24.599976}
   m_SizeDelta: {x: 130.45, y: 24.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1161046636
@@ -2335,6 +2336,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -2770,6 +2785,7 @@ MonoBehaviour:
   initialBulletSpeed: 30
   bulletLifetime: 10
   maxBulletAmmount: 20
+  spawningListOffset: 0
   playerPrefab: {fileID: 1902822253167208, guid: cd6d00cf2cd723b449474e9674b2f650,
     type: 2}
   bulletPrefab: {fileID: 1601846367055628, guid: b6990fcd2bc3f394291c1a925f082a7a,
@@ -3070,8 +3086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 677a599a147d343b8b1e60cfc7f0c247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1902822253167208, guid: cd6d00cf2cd723b449474e9674b2f650,
-    type: 2}
   planetCPrefab: {fileID: 1671406892735626, guid: 55796598d64a641af8da75855708acc3,
     type: 2}
   planetPrefabs:
@@ -3130,7 +3144,8 @@ MonoBehaviour:
   ipField: {fileID: 415849926}
   sendField: {fileID: 72551570}
   genIDIndex: 0
-  spawnableObjects: []
+  spawnableObjects:
+  - {fileID: 1902822253167208, guid: cd6d00cf2cd723b449474e9674b2f650, type: 2}
   IDAndTransforms: []
   spawnMenu: {fileID: 1009471657}
   loginMenu: {fileID: 875540305}

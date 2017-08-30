@@ -302,6 +302,13 @@ public class NetTransportObjectSync : NetTransportText{
 
 		return iat;
 	}
+//	public int findSpawnableIndex(GameObject gO){
+//		for (int i = 0; i < spawnableObjects.Count; i++) {
+//			if (spawnableObjects [i] == gO)
+//				return i;
+//		}
+//		return -1;
+//	}
 
 	#endregion
 

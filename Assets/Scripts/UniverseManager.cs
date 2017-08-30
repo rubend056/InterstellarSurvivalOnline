@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 	public class UniverseManager : MonoBehaviour
 {
-	public const float massMultiplier = 0.00001f;
-	public GameObject playerPrefab;
+	public const float massMultiplier = 0.001f;
+//	public GameObject playerPrefab;
 	public GameObject planetCPrefab;
 	public GameObject[] planetPrefabs;
 	public float maxSolarSystemExtent = 50000;

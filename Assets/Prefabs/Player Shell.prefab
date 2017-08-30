@@ -4674,6 +4674,20 @@ Light:
   m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4710,6 +4724,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4727,7 +4755,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   divisionFactor: 1
   forceP: 0
-  distance: 0
 --- !u!114 &114161027640466790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4743,6 +4770,10 @@ MonoBehaviour:
   sendRate: 0
   updateType: 0
   smoothing: 1
+  localUpdate: 0
+  pos: 1
+  rot: 1
+  sca: 1
 --- !u!114 &114316411867223224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4775,11 +4806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe4c0678babd41a291022de867bc3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectID: 0
-  hasAuthority: 0
-  localPlayer: 0
-  authorityID: 0
-  prefabIndex: 0
+  objID: 0
+  type: 0
 --- !u!114 &114465378784185568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4905,12 +4933,11 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902822253167208}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 170dbd16e84e4654f942df2f0c06ef22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  continent: 0
   yOffset: 0
   xOffset: 0
   zOffset: 0
@@ -4922,6 +4949,8 @@ MonoBehaviour:
   initialBulletSpeed: 30
   bulletLifetime: 10
   maxBulletAmmount: 20
+  spawningListOffset: 0
+  playerPrefab: {fileID: 0}
   bulletPrefab: {fileID: 0}
   planet: {fileID: 0}
   anim: {fileID: 95961396302825876}
