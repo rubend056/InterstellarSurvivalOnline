@@ -242,13 +242,13 @@ public class PointerPick : MonoBehaviour {
 		cca.pause = !cm;
 		//cca.enabled = cm;
 		//slac.enabled = cm;
-		if (cm) {
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
-		} else {
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-		}
+//		if (cm) {
+//			Cursor.visible = false;
+//			Cursor.lockState = CursorLockMode.Locked;
+//		} else {
+//			Cursor.lockState = CursorLockMode.None;
+//			Cursor.visible = true;
+//		}
 	}
 
 	public void setBuildObject(string name, int e){

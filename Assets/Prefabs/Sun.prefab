@@ -165,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5850f51ef51f7499c43c87aad29eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  divisionFactor: 1
   forceP: 0
 --- !u!114 &114060793602075684
 MonoBehaviour:
@@ -180,8 +179,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trans: {fileID: 0}
   sendRate: 0
-  updateType: 5
+  updateType: 1
   smoothing: 1
+  localUpdate: 0
+  pos: 1
+  rot: 1
+  sca: 1
 --- !u!114 &114698810334154008
 MonoBehaviour:
   m_ObjectHideFlags: 1

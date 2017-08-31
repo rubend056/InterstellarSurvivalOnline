@@ -291,15 +291,15 @@ public class CameraControlAdva : MonoBehaviour {
 	public void toggleViewType(ViewMode mode){
 		DebugConsole.Log ("ViewTypeToggled:" + mode.ToString(), "normal");
 		viewMode = mode;
-		if (viewMode == ViewMode.around) {
-			gameObject.transform.parent = toFollow.transform;
-		} else if (viewMode == ViewMode.definitePos) {
-			gameObject.transform.parent = null;
-//			lookAt.target = planet.transform;
-//			gameObject.transform.parent = startingParent;
-		}
+//		if (viewMode == ViewMode.around) {
+//			gameObject.transform.parent = toFollow.transform;
+//		} else if (viewMode == ViewMode.definitePos) {
+//			gameObject.transform.parent = null;
+////			lookAt.target = planet.transform;
+////			gameObject.transform.parent = startingParent;
+//		}
 		lookAt.viewMode = viewMode;
-		cursorCheck ();
+//		cursorCheck ();
 	}
 
 
@@ -339,13 +339,13 @@ public class CameraControlAdva : MonoBehaviour {
 	}
 
 	public void cursorCheck(){
-		if (toFollow.tag == "Player" && viewMode == ViewMode.around) {
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
-		} else if (viewMode == ViewMode.definitePos){
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-		}
+//		if (toFollow.tag == "Player" && viewMode == ViewMode.around) {
+//			Cursor.visible = false;
+//			Cursor.lockState = CursorLockMode.Locked;
+//		} else if (viewMode == ViewMode.definitePos){
+//			Cursor.lockState = CursorLockMode.None;
+//			Cursor.visible = true;
+//		}
 	}
 
 	public void spawnPlayer(){

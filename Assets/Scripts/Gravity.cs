@@ -5,11 +5,10 @@ using System.Collections.Generic;
 public class Gravity : MonoBehaviour {
 
 	//private GameObject[] planets;
-	[Range(0.3f,2f)]
-	public float divisionFactor = 1;
+//	public float multFactor = 1;
 	public float forceP;
 //	public float distance;
-	public const float gravityConst = 0.0000000000667408f * 100000000000;
+	public const float gravityConst = 0.0000000000667408f * 100000000;
 
 	Transform thisTransform;
 	Rigidbody thisRigidBody;
@@ -19,10 +18,9 @@ public class Gravity : MonoBehaviour {
 		planetInfoArray = new planetsGInfo[0];
 		thisTransform = gameObject.transform;
 		thisRigidBody = gameObject.GetComponent (typeof(Rigidbody)) as Rigidbody;
-
 	}
 	// Update is called once per frame
-	int r = 0;
+	int r = 61;
 	void Update () {
 		if (r > 60) {
 			updatePlanets ();
@@ -34,7 +32,7 @@ public class Gravity : MonoBehaviour {
 			float distSqr = (planetR.rb.transform.position - thisTransform.position).sqrMagnitude;
 			Vector3 direction = (planetR.rb.transform.position - thisTransform.position).normalized;
 
-			float force = Time.deltaTime * 60 *  getGravityForce(planetR.rb.mass, thisRigidBody.mass, distSqr);/*Sphere.getFictionalForce(gravityMultiplier.multiplier * planetR.rb.mass,distance) * divisionFactor*/;
+			float force = Time.deltaTime * 60 * getGravityForce(planetR.rb.mass, thisRigidBody.mass, distSqr)/*Sphere.getFictionalForce(gravityMultiplier.multiplier * planetR.rb.mass,distance) * divisionFactor*/;
 			Vector3 forceVector = direction * force;
 
 			thisRigidBody.AddForce (forceVector, ForceMode.Force);

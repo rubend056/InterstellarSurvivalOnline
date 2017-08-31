@@ -1,15 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UniverseManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="180" Column="37" />
-      <File FileName="Assets/Scripts/UniverseManager.cs" Line="8" Column="42" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="148" Column="30" />
+      <File FileName="Assets/Scripts/UniverseManager.cs" Line="74" Column="46" />
       <File FileName="Assets/Scripts/NetworkedClasses/NetTransportObjectSync.cs" Line="311" Column="5" />
-      <File FileName="Assets/Scripts/Gravity.cs" Line="12" Column="70" />
+      <File FileName="Assets/Scripts/Gravity.cs" Line="36" Column="43" />
+      <File FileName="Assets/Scripts/Camera/CameraControlAdva.cs" Line="294" Column="5" />
+      <File FileName="Assets/Scripts/PointerPick.cs" Line="246" Column="4" />
+      <File FileName="Assets/Scripts/NetworkedClasses/NetTransformCustom.cs" Line="9" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <RunToCursorBreakpoint file="/home/rubend/Documents/Unity3D/InterstellarSurvivalOnline/Assets/Scripts/UniverseManager.cs" line="38" column="3" />
+      <RunToCursorBreakpoint file="/home/rubend/Documents/Unity3D/InterstellarSurvivalOnline/Assets/Scripts/UniverseManager.cs" line="70" column="32" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

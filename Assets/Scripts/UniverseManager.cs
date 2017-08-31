@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 	public class UniverseManager : MonoBehaviour
 {
-	public const float massMultiplier = 0.001f;
+	public const float massMultiplier = 0.1f;
 //	public GameObject playerPrefab;
 	public GameObject planetCPrefab;
 	public GameObject[] planetPrefabs;
 	public float maxSolarSystemExtent = 50000;
+	public float minSolarSystemExtent = 1000;
 	[Range(1,30)]
 	public int maxNumPlanets = 0;
-	public float sunRadius = 2800;
+	private float sunRadius = 2800;
 	public float initialSpeed = 100;
 	[Range (1f, 90f)]
 	public float gameSpeed = 1;
@@ -40,6 +41,8 @@ using UnityEngine.UI;
 		ssInstances = new List<StarSystem> ();
 
 		timeText.text = "";
+
+		sunRadius = (planetPrefabs[0].transform.localScale.magnitude / 3) / 2;
 		//CreatePlanets ();
 		//StartCoroutine (CenterTest ());
 	}
@@ -85,7 +88,7 @@ using UnityEngine.UI;
 			float planetRadius = Random.Range (100f, 150f);
 			//planetPrefabs [planetRandom].GetComponent<PlanetGenerator3> ().radius = planetRadius;
 
-			float distance = /*(sunRadius + planetRadius + 1000)*/ Random.Range (sunRadius + planetRadius + 100, maxSolarSystemExtent);
+			float distance = /*(sunRadius + planetRadius + 1000)*/ Random.Range (minSolarSystemExtent + planetRadius + 100, maxSolarSystemExtent);
 			var planetPos = Random.onUnitSphere/*Vector3.right*/ * distance;//(Random.Range(sunRadius+planetRadius,maxSolarSystemExtent-planetRadius));
 			DebugConsole.Log ("Distance:" + distance.ToString ());
 

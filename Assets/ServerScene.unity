@@ -2777,8 +2777,8 @@ MonoBehaviour:
   yOffset: 0
   xOffset: 0
   zOffset: 0
-  moveForce: 2000
-  jumpForce: 5000
+  moveForce: 50
+  jumpForce: 120
   animSpeedDiv: 2
   ratioOut: 0
   maxSpeed: 5
@@ -3092,8 +3092,8 @@ MonoBehaviour:
   - {fileID: 1989195278776086, guid: 4b7203dad0b8c3f4892638e7aefa28a6, type: 2}
   - {fileID: 1100450525026562, guid: 9cfedf6ac94df1741bab16380907e6e8, type: 2}
   maxSolarSystemExtent: 4000
+  minSolarSystemExtent: 1000
   maxNumPlanets: 1
-  sunRadius: 963
   initialSpeed: 300
   gameSpeed: 1
   player: {fileID: 1984344561}

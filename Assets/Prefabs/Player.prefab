@@ -4395,7 +4395,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902822253167208}
   serializedVersion: 2
-  m_Mass: 50
+  m_Mass: 1
   m_Drag: 1
   m_AngularDrag: 3
   m_UseGravity: 0
@@ -4593,6 +4593,20 @@ Light:
   m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4629,6 +4643,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4644,7 +4672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5850f51ef51f7499c43c87aad29eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  divisionFactor: 1
   forceP: 0
 --- !u!114 &114161027640466790
 MonoBehaviour:
@@ -4658,7 +4685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trans: {fileID: 0}
-  sendRate: 0
+  sendRate: 5
   updateType: 1
   smoothing: 1
   localUpdate: 0

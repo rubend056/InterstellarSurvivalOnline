@@ -98,12 +98,14 @@ public class PlayerController : MonoBehaviour {
 	public void spawn(){
 		var planetInst = CameraControlAdva.instance.toFollow;
 		var netInst = NetTransportManager.instance;
-		changePlayerInstance (netInst.spawnObject(
-			spawningListOffset + 0,
-			netInst.playerInfo.uniqueID,
-			Vector3.zero,
-			Quaternion.identity
-		).instance);
+		var playerInst = netInst.spawnObject (
+			                 spawningListOffset + 0,
+			                 netInst.playerInfo.uniqueID,
+			                 Vector3.zero,
+			                 Quaternion.identity
+		                 ).instance;
+		changePlayerInstance (playerInst);
+		UniverseManager.instance.player = playerInst.transform;
 		spawnPlayer (planetInst);
 	}
 
@@ -137,11 +139,13 @@ public class PlayerController : MonoBehaviour {
 		//CCA.invert = false;
 		CCA.yOffset = 1f;
 		CCA.toggleViewType (CameraControlAdva.ViewMode.around);
+		CCA.targetOrientation = true;
 		CCA.cursorCheck ();
 
 		//CmdChangeContinent(CustomNMUI.instance.continent);
 		SmoothLookAtC slac = cameraObj.GetComponent<SmoothLookAtC> ();
 		slac.target = ownTransform;
+		slac.useOtherOrient = true;
 
 	}
 
@@ -153,7 +157,7 @@ public class PlayerController : MonoBehaviour {
 //			if (check) {
 //				check = false;
 //			}
-			moveFoward (moveForce);
+			moveFoward (moveForce * ownRigidBody.mass);
 		}
 		RaycastHit rayHit;
 		if (Physics.Raycast (ownTransform.position,-ownTransform.up, out rayHit, 0.8f)) {
@@ -165,9 +169,6 @@ public class PlayerController : MonoBehaviour {
 		speed = Mathf.Clamp (speed, 0.5f, 2f);
 
 		if (anim) {
-			
-
-
 			if (vertValue > 0) {
 				anim.SetBool ("Foward", true);
 				anim.SetFloat ("Speed", speed);
