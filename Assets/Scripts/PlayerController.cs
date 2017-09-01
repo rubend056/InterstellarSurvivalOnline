@@ -106,7 +106,10 @@ public class PlayerController : MonoBehaviour {
 		                 ).instance;
 		changePlayerInstance (playerInst);
 		UniverseManager.instance.player = playerInst.transform;
+		UniverseCenter.instance.universeCenter = planetInst.transform;
+		UniverseCenter.instance.switchCenter ();
 		spawnPlayer (planetInst);
+		playerInst.transform.parent = planetInst.transform;
 	}
 
 	private void spawnPlayer(GameObject whereToSpawn){
@@ -125,19 +128,19 @@ public class PlayerController : MonoBehaviour {
 		SpawningInfo spInfo = spawnManager.availableSpawns [randomNumber];
 		ownTransform.position = spInfo.trans.TransformPoint (spInfo.position); 
 		alignToPlanet ();
-		ownTransform.position += (ownTransform.up * 5);
+		ownTransform.position += (ownTransform.up * 50);
 
 
 		//setting camera up
 		GameObject cameraObj = GameObject.FindGameObjectWithTag ("MainCamera");
 		cameraTransform = cameraObj.transform;
 
-		CameraControlAdva CCA = cameraObj.GetComponent<CameraControlAdva> ();
-//		CCA.rotationToChange = ownTransform.gameObject;
+		var CCA = CameraControlAdva.instance;
+		CCA.rotationToChange = this;
 		CCA.planetView = false;
 		CCA.changeFollow (ownTransform.gameObject);
 		//CCA.invert = false;
-		CCA.yOffset = 1f;
+		CCA.yOffset = 1.2f;
 		CCA.toggleViewType (CameraControlAdva.ViewMode.around);
 		CCA.targetOrientation = true;
 		CCA.cursorCheck ();
@@ -146,6 +149,8 @@ public class PlayerController : MonoBehaviour {
 		SmoothLookAtC slac = cameraObj.GetComponent<SmoothLookAtC> ();
 		slac.target = ownTransform;
 		slac.useOtherOrient = true;
+
+
 
 	}
 

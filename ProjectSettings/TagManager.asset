@@ -11,6 +11,7 @@ TagManager:
   - planetRB
   - Bullet
   - star
+  - root
   layers:
   - Default
   - TransparentFX

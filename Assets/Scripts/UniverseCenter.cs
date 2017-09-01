@@ -8,22 +8,24 @@ public class UniverseCenter : MonoBehaviour{
 	public static UniverseCenter instance;
 
 	public Transform universeCenter;
-	private bool centerUniverse = false;
+
+	public bool centerUniverse = false;
 	public float snapDistance = 1000000;
 	private Vector3 shiftedPos;
 	//private Vector3 shiftedRot;
 
-	private List<Transform> allOthers;
-	public List<LineRenderer> trenderers;
+	public List<Transform> allOthers;
+	public LineRenderer[] trenderers;
 	private GameObject master;
 	void Awake(){
 		instance = this;
 		allOthers = new List<Transform> ();
-		trenderers = new List<LineRenderer> ();
+		trenderers = new LineRenderer[0];
 	}
 
 	void Start(){
 		shiftedPos = Vector3.zero;
+		switchCenter ();
 		//shiftedRot = Vector3.zero;
 	}
 
@@ -46,6 +48,8 @@ public class UniverseCenter : MonoBehaviour{
 
 		master = new GameObject();
 		master.transform.position = shiftedPos;
+		master.name = "Master";
+		master.tag = "root";
 		//master.transform.rotation = Quaternion.Euler(shiftedRot);
 		foreach (Transform trans in allOthers) {
 			trans.parent = master.transform;
@@ -69,10 +73,17 @@ public class UniverseCenter : MonoBehaviour{
 		allOthers.Clear ();
 		GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
 		for (int i = 0; i < allObjects.Length; i++) {
-			if (allObjects [i].activeInHierarchy && allObjects[i].transform.parent == null) {
+			if (allObjects[i].transform.parent == null && allObjects[i].layer != 5) {
 				allOthers.Add (allObjects [i].transform);
 			}
 		}
+		List<LineRenderer> trList = new List<LineRenderer> ();
+		foreach (Transform trans in allOthers) {
+			var trail = trans.GetComponent<LineRenderer> ();
+			if (trail != null)
+				trList.Add (trail);
+		}
+		trenderers = trList.ToArray ();
 	}
 
 	void shiftEverything(Vector3 ammount/*, Vector3 rotammount*/){
@@ -80,7 +91,7 @@ public class UniverseCenter : MonoBehaviour{
 		master.transform.position += ammount;
 		//master.transform.eulerAngles += rotammount;
 
-		for (int i = 0; i < trenderers.Count; i++) {
+		for (int i = 0; i < trenderers.Length; i++) {
 			Vector3[] somethings = new Vector3[trenderers[i].positionCount];trenderers[i].GetPositions(somethings);
 			for (int e = 0; e < somethings.Length; e++) {
 				somethings [e] += ammount;
@@ -90,6 +101,8 @@ public class UniverseCenter : MonoBehaviour{
 	}
 
 	public void switchCenter(){
+		if (universeCenter == null)
+			return;
 		centerUniverse = !centerUniverse;
 		if (centerUniverse)
 			OnCenterOn ();
@@ -100,4 +113,5 @@ public class UniverseCenter : MonoBehaviour{
 	public bool isCenter(){
 		return centerUniverse;
 	}
+	void OnValidate(){switchCenter ();}
 }

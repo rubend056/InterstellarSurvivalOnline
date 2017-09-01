@@ -268,7 +268,11 @@ public class NetTransportObjectSync : NetTransportText{
 
 	public IdentityAndTransform spawnObjectSync(int prefabIndex, int authorityID, Vector3 pos, Quaternion rot, int objectID){
 		destroyObjectByID (objectID);
-		var instance = (GameObject)GameObject.Instantiate (spawnableObjects [prefabIndex], pos, rot);
+
+		GameObject rootObj = GameObject.FindGameObjectWithTag ("root");
+		var instance = GameObject.Instantiate (spawnableObjects [prefabIndex], pos, rot);
+		if (rootObj != null)
+			instance.transform.parent = rootObj.transform;
 
 		var iat = new IdentityAndTransform (instance, prefabIndex, objectID, authorityID, false);
 
@@ -287,7 +291,10 @@ public class NetTransportObjectSync : NetTransportText{
 		if (!server)
 			return null;
 
-		var instance = (GameObject)GameObject.Instantiate (spawnableObjects [prefabIndex], pos, rot);
+		GameObject rootObj = GameObject.FindGameObjectWithTag ("root");
+		var instance = GameObject.Instantiate (spawnableObjects [prefabIndex], pos, rot);
+		if (rootObj != null)
+			instance.transform.parent = rootObj.transform;
 
 		var iat = new IdentityAndTransform (instance, prefabIndex, generateID(), authorityID, false);
 

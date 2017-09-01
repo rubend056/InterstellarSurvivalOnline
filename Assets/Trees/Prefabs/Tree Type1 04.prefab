@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3332752}
   - component: {fileID: 2323336}
   - component: {fileID: 136290461948883044}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree Type1 04
   m_TagString: Pine
   m_Icon: {fileID: 0}

@@ -108,6 +108,7 @@ public class DebugConsole : MonoBehaviour
 				if (s_Instance == null)
 				{
 					GameObject console = new GameObject();
+					console.layer = 5;
 					console.AddComponent<DebugConsole>();
 					console.name = "DebugConsoleController";
 					s_Instance = FindObjectOfType(typeof(DebugConsole)) as DebugConsole;
@@ -143,6 +144,7 @@ public class DebugConsole : MonoBehaviour
 				DebugGui = new GameObject();
 				DebugGui.AddComponent<GUIText>();
 				DebugGui.name = "DebugGUI(0)";
+				DebugGui.layer = 5;
 				DebugGui.transform.position = defaultGuiPosition;
 				DebugGui.transform.localScale = defaultGuiScale;
 			}

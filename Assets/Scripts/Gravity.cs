@@ -5,17 +5,17 @@ using System.Collections.Generic;
 public class Gravity : MonoBehaviour {
 
 	//private GameObject[] planets;
-//	public float multFactor = 1;
+	public float multFactor = 1;
 	public float forceP;
 //	public float distance;
-	public const float gravityConst = 0.0000000000667408f * 100000000;
+	public const float gravityConst = 0.0000000000667408f * 10000000;
 
 	Transform thisTransform;
 	Rigidbody thisRigidBody;
-	private planetsGInfo[] planetInfoArray;
+	public Rigidbody[] planetInfoArray;
 
 	void Start(){
-		planetInfoArray = new planetsGInfo[0];
+		planetInfoArray = new Rigidbody[0];
 		thisTransform = gameObject.transform;
 		thisRigidBody = gameObject.GetComponent (typeof(Rigidbody)) as Rigidbody;
 	}
@@ -27,13 +27,13 @@ public class Gravity : MonoBehaviour {
 			r = 0;
 		}r++;
 		forceP = 0;
-		foreach (planetsGInfo planetR in planetInfoArray) {
+		foreach (Rigidbody rb in planetInfoArray) {
 
-			float distSqr = (planetR.rb.transform.position - thisTransform.position).sqrMagnitude;
-			Vector3 direction = (planetR.rb.transform.position - thisTransform.position).normalized;
+			float distSqr = (rb.transform.position - thisTransform.position).sqrMagnitude;
+			Vector3 direction = (rb.transform.position - thisTransform.position).normalized;
 
-			float force = Time.deltaTime * 60 * getGravityForce(planetR.rb.mass, thisRigidBody.mass, distSqr)/*Sphere.getFictionalForce(gravityMultiplier.multiplier * planetR.rb.mass,distance) * divisionFactor*/;
-			Vector3 forceVector = direction * force;
+			float force = Time.deltaTime * 60 * getGravityForce(rb.mass, thisRigidBody.mass, distSqr)/*Sphere.getFictionalForce(gravityMultiplier.multiplier * planetR.rb.mass,distance) * divisionFactor*/;
+			Vector3 forceVector = direction * force * multFactor;
 
 			thisRigidBody.AddForce (forceVector, ForceMode.Force);
 
@@ -56,17 +56,17 @@ public class Gravity : MonoBehaviour {
 
 		planets = planetsL.ToArray ();
 
-		planetInfoArray = new planetsGInfo[planets.Length];
+		planetInfoArray = new Rigidbody[planets.Length];
 		for (int i = 0; i < planetInfoArray.Length; i++) {
-			var planetR = new planetsGInfo ();
+			
 
-			planetR.rb = planets [i].GetComponent<Rigidbody> ();
+			planetInfoArray[i] = planets [i].GetComponent<Rigidbody> ();
 
 //			planetR.distSqr = (planets[i].transform.position - thisTransform.position).sqrMagnitude;
 //			Vector3 direction = (planetR.rb.transform.position - thisTransform.position).normalized;
 //			planetR.dir = direction;
 
-			planetInfoArray [i] = planetR;
+//			planetInfoArray [i] = planetR;
 		}
 		//waitTime = /*Mathf.Clamp (2/((thisRigidBody.velocity.magnitude*0.01f)+1),0.1f,1f)*/0.01f;
 	}
@@ -83,9 +83,9 @@ public class Gravity : MonoBehaviour {
 		return gravityConst * ((obj1Mass * obj2Mass) / distanceSqrd);
 	}
 
-	private class planetsGInfo{
-		public Rigidbody rb;
-//		public Vector3 dir;
-//		public float distSqr;
-	}
+//	private class planetsGInfo{
+//		public Rigidbody rb;
+////		public Vector3 dir;
+////		public float distSqr;
+//	}
 }

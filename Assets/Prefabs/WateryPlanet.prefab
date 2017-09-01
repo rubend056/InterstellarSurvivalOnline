@@ -7141,11 +7141,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeScale: 0.1
   startSize: 0
-  finalSize: 0.7
-  finalSizeDev: 0.2
+  finalSize: 0.45
+  finalSizeDev: 0.12
   growingSpeed: 0.1
   startSpawnNumber: 3
-  doTrees: 0
+  doTrees: 1
   planetT: {fileID: 4807997248209272}
   areChildren: 1
   regionArray:
@@ -7153,13 +7153,13 @@ MonoBehaviour:
     specificColor: {r: 0, g: 0.5147059, b: 0.024344169, a: 0}
     objectArray:
     - name: Tree1
-      percent: 7
+      percent: 2
       obj: {fileID: 115084, guid: 7c5aafe3fe2c6ef4a9150f7f44653760, type: 2}
       enemy: 0
       rotOffset: {x: 90, y: 0, z: 0}
       rotOffVar: {x: 0, y: 0, z: 0}
     - name: Tree2
-      percent: 9
+      percent: 3
       obj: {fileID: 185286, guid: 8ed1fa325ca228645ad26dd6eff14768, type: 2}
       enemy: 0
       rotOffset: {x: 90, y: 0, z: 0}
@@ -7443,7 +7443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trans: {fileID: 0}
-  sendRate: 5
+  sendRate: 1
   updateType: 1
   smoothing: 1
   localUpdate: 0
@@ -10316,6 +10316,7 @@ LineRenderer:
     numCapVertices: 3
     alignment: 0
     textureMode: 0
+    generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!122 &122816998302942366

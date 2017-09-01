@@ -1683,6 +1683,8 @@ GameObject:
   - component: {fileID: 4856010647449542}
   - component: {fileID: 33460287011913456}
   - component: {fileID: 23260227218694734}
+  - component: {fileID: 114924841239295228}
+  - component: {fileID: 114700489387143352}
   m_Layer: 12
   m_Name: head
   m_TagString: Untagged
@@ -3016,8 +3018,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902822253167208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -436.32758, y: 372.96063, z: -774.14844}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -157.97237, y: 154.01024, z: -65.91468}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 4742239041620916}
   - {fileID: 224109862835493110}
@@ -4672,7 +4674,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5850f51ef51f7499c43c87aad29eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multFactor: 200
   forceP: 0
+  planetInfoArray: []
 --- !u!114 &114161027640466790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4685,7 +4689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trans: {fileID: 0}
-  sendRate: 5
+  sendRate: 10
   updateType: 1
   smoothing: 1
   localUpdate: 0
@@ -4796,6 +4800,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114700489387143352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897628224200616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa67e168fcda4bf390b7ac82e42e06a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trans: {fileID: 0}
+  sendRate: 5
+  updateType: 0
+  smoothing: 1
+  localUpdate: 1
+  pos: 0
+  rot: 1
+  sca: 0
 --- !u!114 &114773460507790834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4845,6 +4868,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Name
+--- !u!114 &114924841239295228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897628224200616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe4c0678babd41a291022de867bc3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objID: 0
+  type: 0
 --- !u!114 &114988968091149396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4871,11 +4907,11 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1478443962373058}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 457b9ec35c80c454dbf542bf3b8a92b2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.6524153
-  m_Height: 4.29
+  m_Radius: 0.6
+  m_Height: 4.2
   m_Direction: 1
   m_Center: {x: 0, y: -1.1, z: 0}
 --- !u!137 &137578634085210838
